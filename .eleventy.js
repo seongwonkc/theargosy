@@ -1,7 +1,8 @@
 /** @type {import("@11ty/eleventy").UserConfig} */
 module.exports = function(eleventyConfig) {
   // Passthrough static assets
-  eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
 
   // --- Filters ---
   eleventyConfig.addFilter("dateIso", (d) => new Date(d).toISOString());
