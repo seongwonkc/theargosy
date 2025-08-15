@@ -1,24 +1,15 @@
 ---
 layout: "layouts/base.njk"
-pagination:
-  data: collections.articles
-  size: 10
-  alias: pagePosts
-permalink: "/section/{{ section | slugify }}/{{ pagination.pageNumber | plus(1) }}/"
-eleventyComputed:
-  section: "{{ sectionParam }}"
-  pagination:
-    before: |
-      function(data) {
-        const section = data.sectionParam;
-        const filtered = data.collections.articles.filter(a => (a.data.section || "").toLowerCase() === section.toLowerCase());
-        return filtered;
-      }
+title: "Section"
+summary: "Section articles"
 ---
 
+{% set section = sectionParam or "Politics" %}
 <h1>{{ section }}</h1>
+
+{% set posts = collections.articles | filter(attribute="data.section", value=section) %}
 <ul style="list-style:none; padding:0;">
-  {% for post of pagePosts %}
+  {% for post in posts %}
     <li style="margin-bottom:1rem;">
       <a class="card" href="{{ post.url }}"><strong>{{ post.data.title }}</strong></a><br>
       <span class="muted">{{ post.date | dateReadable }} • {{ post.data.author }}</span>
@@ -26,10 +17,3 @@ eleventyComputed:
     </li>
   {% endfor %}
 </ul>
-
-{% if pagination.href.previous or pagination.href.next %}
-<nav class="muted">
-  {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">← Newer</a>{% endif %}
-  {% if pagination.href.next %}<a style="float:right" href="{{ pagination.href.next }}">Older →</a>{% endif %}
-</nav>
-{% endif %}
