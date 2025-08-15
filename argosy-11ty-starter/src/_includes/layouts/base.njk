@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or site.title }}</title>
+  <meta name="description" content="{{ summary | safe }}">
+  <link rel="icon" href="/assets/favicon.ico">
+  <style>
+    :root { --max: 1080px; --g: 1rem; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body { margin: 0; }
+    header { position: sticky; top: 0; background: #111; color: #fff; z-index: 10; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: .75rem var(--g); }
+    .topbar { display: flex; align-items: center; gap: 1rem; overflow: auto; }
+    .brand { font-weight: 800; letter-spacing: .5px; white-space: nowrap; }
+    nav a { color: #ddd; text-decoration: none; margin-right: 1rem; white-space: nowrap; }
+    nav a:hover { color: #fff; }
+    main { max-width: var(--max); margin: 2rem auto; padding: 0 var(--g); }
+    .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+    .card { display: block; text-decoration: none; color: inherit; }
+    .card img { width: 100%; height: auto; border-radius: 8px; }
+    .muted { color: #666; font-size: .9rem; }
+    footer { border-top: 1px solid #eee; padding: 2rem 0; margin-top: 3rem; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div class="brand"><a href="/" style="color:#fff; text-decoration:none;">{{ site.title }}</a></div>
+      <nav>
+        {% for item in site.navigation %}
+          <a href="{{ item.href }}">{{ item.label }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer>
+    <div class="wrap muted">
+      <div>{{ site.title }} — {{ site.tagline }}</div>
+      <div>&copy; {{ "now" | date | dateReadable }} • {{ site.author }}</div>
+    </div>
+  </footer>
+</body>
+</html>
