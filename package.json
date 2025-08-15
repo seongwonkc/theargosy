@@ -1,0 +1,14 @@
+{
+  "name": "argosy-11ty-starter",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A clean Eleventy (11ty) + Netlify news/magazine starter with pagination, sections, and article layout.",
+  "scripts": {
+    "dev": "npx @11ty/eleventy --serve --quiet",
+    "build": "npx @11ty/eleventy",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
