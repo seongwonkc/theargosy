@@ -7,10 +7,16 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("dateIso", (dateObj) => {
     return new Date(dateObj).toISOString();
   });
-  eleventyConfig.addFilter("dateReadable", (dateObj) => {
-    const d = new Date(dateObj);
-    return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+eleventyConfig.addFilter("dateReadable", (d) => {
+  const dateObj = (d === "now" || d === undefined || d === null || d === "")
+    ? new Date()
+    : new Date(d);
+  return dateObj.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
   });
+
   eleventyConfig.addFilter("slugify", (str = "") => {
     return str.toString().toLowerCase().trim()
       .replace(/[^a-z0-9]+/g, "-")
