@@ -30,9 +30,16 @@ eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
   eleventyConfig.addFilter("plus", (a, b) => (Number(a) || 0) + (Number(b) || 0));
 
   // --- Collections ---
-  eleventyConfig.addCollection("articles", (api) =>
-    api.getFilteredByGlob("src/articles/**/*.md").sort((a, b) => b.date - a.date)
-  );
+  eleventyConfig.addCollection("articles", (api) => {
+  const now = new Date();
+  return api
+    .getFilteredByGlob("src/articles/**/*.md")
+    // ignore drafts like: draft: true
+    .filter((p) => p.data.draft !== true)
+    // ignore future-dated posts (Seoul time issues etc.)
+    .filter((p) => p.date && p.date <= now)
+    .sort((a, b) => b.date - a.date);
+});
 
   // Eleventy core config
   return {
