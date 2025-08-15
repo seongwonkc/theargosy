@@ -1,0 +1,28 @@
+{% extends "layouts/base.njk" %}
+{% block content %}
+{% set section = sectionParam or "Section" %}
+
+<h1>{{ section }}</h1>
+
+{# Build a list of posts in this section (case-insensitive) #}
+{% set posts = [] %}
+{% for p in collections.articles %}
+  {% if (p.data.section or '') | lower == (section | lower) %}
+    {% set posts = posts.concat([p]) %}
+  {% endif %}
+{% endfor %}
+
+{% if posts.length == 0 %}
+  <p class="muted">No articles in this section yet.</p>
+{% else %}
+  <ul style="list-style:none; padding:0;">
+    {% for post in posts %}
+      <li style="margin-bottom:1rem;">
+        <a class="card" href="{{ post.url }}"><strong>{{ post.data.title }}</strong></a><br>
+        <span class="muted">{{ post.date | dateReadable }} • {{ post.data.author }}</span>
+        {% if post.data.summary %}<div>{{ post.data.summary }}</div>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}
