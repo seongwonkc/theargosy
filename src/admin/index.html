@@ -4,24 +4,38 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Content Manager</title>
-    <!-- Netlify Identity (login modal) -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- Decap CMS (auto-mounts on /admin) -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <style>
-      /* tiny reset to avoid inherited styles if any */
       html,body{margin:0;padding:0;background:#fff;color:#111;font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+      #cms-root{min-height:100vh; display:flex; align-items:center; justify-content:center}
     </style>
   </head>
   <body>
-    <!-- Decap auto-initializes; no CMS.init() call needed -->
+    <div id="cms-root">Loading CMS…</div>
+
+    <!-- Netlify Identity (for login) -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => window.location.reload());
-          }
-        });
+      // Force manual init so we don't depend on auto-mount timing
+      window.CMS_MANUAL_INIT = true;
+
+      function bootCMS() {
+        if (window.CMS) {
+          CMS.init({ config: { load_config_file: true } }); // loads /admin/config.yml
+        }
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", (user) => {
+            if (!user) window.netlifyIdentity.on("login", () => window.location.reload());
+          });
+        }
+      }
+
+      if (document.readyState === "complete" || document.readyState === "interactive") {
+        bootCMS();
+      } else {
+        document.addEventListener("DOMContentLoaded", bootCMS);
       }
     </script>
   </body>
