@@ -7,7 +7,7 @@ local_backend: true
 media_folder: "src/assets/images"
 public_folder: "/assets/images"
 
-site_url: "https://theargosy.netlify.app"
+site_url: "https://theargosy.org"
 
 collections:
   - name: "articles"
