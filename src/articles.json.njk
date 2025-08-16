@@ -1,22 +1,32 @@
 ---
-permalink: "/articles.json"
 eleventyExcludeFromCollections: true
+permalink: "/articles.json"
 ---
-[
-{% set items = collections.articles %}
-{% for post in items %}
+{# build “page 1” without Eleventy pagination so the URL stays /articles.json #}
 {
-  "title": {{ post.data.title | dump }},
-  "date": {{ (post.date | dateIso) | dump }},
-  "author": {{ (post.data.author or "Staff Reporter") | dump }},
-  "section": {{ (post.data.section or "Article") | dump }},
-  "summary": {{ (post.data.summary or "") | dump }},
-  "image": {{ (post.data.image or "") | dump }},
-  "image_alt": {{ (post.data.image_alt or post.data.title or "") | dump }},
-  "image_credit": {{ (post.data.image_credit or "") | dump }},
-  "url": {{ post.url | dump }},
-  "slug": {{ (post.fileSlug or "") | dump }},
-  "tags": {{ (post.data.tags or []) | dump }}
-}{% if not loop.last %},{% endif %}
-{% endfor %}
-]
+  "page": 1,
+  "page_size": 20,
+  "total_pages": {{ (collections.articles | length + 19) // 20 }},
+  "next": {{ (collections.articles | length > 20) and "/articles/2.json" or null | dump }},
+  "previous": null,
+  "items": [
+    {%- set shown = 0 -%}
+    {%- for post in collections.articles -%}
+      {%- if shown < 20 -%}
+        {
+          "title": {{ post.data.title | dump }},
+          "date": {{ (post.date | dateIso) | dump }},
+          "author": {{ (post.data.author or "Staff Reporter") | dump }},
+          "section": {{ (post.data.section or "Article") | dump }},
+          "summary": {{ (post.data.summary or "") | dump }},
+          "image": {{ (post.data.image or "") | dump }},
+          "image_alt": {{ (post.data.image_alt or post.data.title or "") | dump }},
+          "image_credit": {{ (post.data.image_credit or "") | dump }},
+          "url": {{ post.url | dump }},
+          "slug": {{ (post.fileSlug or "") | dump }},
+          "tags": {{ (post.data.tags or []) | dump }}
+        }{%- set shown = shown + 1 -%}{% if shown < 20 and not loop.last %},{% endif %}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
