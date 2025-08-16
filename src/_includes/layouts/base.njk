@@ -27,7 +27,13 @@
 <body>
   <header>
     <div class="wrap topbar">
-      <div class="brand"><a href="/" style="color:#fff; text-decoration:none;">{{ site.title }}</a></div>
+      <div class="brand">
+  <a href="/" style="color:#fff; text-decoration:none; display:flex; align-items:center; gap:.5rem;">
+    {% if site.logo %}<img src="{{ site.logo }}" alt="{{ site.title }}" style="height:24px; width:auto;">{% endif %}
+    <span>{{ site.title }}</span>
+  </a>
+</div>
+
       <nav>
         {% for item in site.navigation %}
           <a href="{{ item.href }}">{{ item.label }}</a>
