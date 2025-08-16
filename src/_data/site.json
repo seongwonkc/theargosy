@@ -2,7 +2,8 @@
   "title": "Argosy",
   "tagline": "Stories with a spine.",
   "url": "https://example.com",
-  "author": "Minwoo Jung",
+  "author": "Herbart Kita",
+  "logo": "/assets/logo.svg",
   "navigation": [
     {
       "label": "Politics",
