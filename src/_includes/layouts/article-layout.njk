@@ -4,9 +4,19 @@
   <header>
     <p class="muted">{{ date | dateReadable }} • {{ author }} • {{ section }}</p>
     <h1>{{ title }}</h1>
+
     {% if image %}
-      <img src="{{ image }}" alt="{{ title }}">
+      <figure class="hero">
+        <img src="{{ image }}" alt="{{ image_alt or title }}">
+        {% if image_credit or image_alt %}
+          <figcaption>
+            {% if image_alt %}{{ image_alt }}{% endif %}
+            {% if image_credit %}{% if image_alt %} — {% endif %}{{ image_credit }}{% endif %}
+          </figcaption>
+        {% endif %}
+      </figure>
     {% endif %}
+
     {% if summary %}<p class="muted">{{ summary }}</p>{% endif %}
   </header>
 
