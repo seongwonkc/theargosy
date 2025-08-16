@@ -7,8 +7,6 @@ local_backend: true
 media_folder: "src/assets/images"
 public_folder: "/assets/images"
 
-site_url: "https://<your-site>.netlify.app"
-
 collections:
   - name: "articles"
     label: "Articles"
@@ -22,9 +20,7 @@ collections:
       - { label: "Author", name: "author", widget: "string", default: "Minwoo Jung" }
       - { label: "Section", name: "section", widget: "select", options: ["Politics", "Business", "Tech", "Culture"] }
       - { label: "Summary", name: "summary", widget: "text" }
-      - { label: "Image", name: "image", widget: "image", allow_multiple: false }
-      - { label: "Image Alt Text", name: "image_alt", widget: "string", required: false }
-      - { label: "Image Credit", name: "image_credit", widget: "string", required: false }
+      - { label: "Image", name: "image", widget: "image" }
       - { label: "Layout", name: "layout", widget: "hidden", default: "layouts/article-layout.njk" }
       - { label: "Tags", name: "tags", widget: "list", default: ["articles"] }
       - { label: "Body", name: "body", widget: "markdown" }
