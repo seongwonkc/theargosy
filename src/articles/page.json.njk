@@ -1,0 +1,32 @@
+---
+eleventyExcludeFromCollections: true
+pagination:
+  data: collections.articles
+  size: 20         # change page size here anytime
+  alias: pagePosts
+permalink: "/articles/{{ pagination.pageNumber + 1 }}.json"
+---
+{
+  "page": {{ pagination.pageNumber + 1 }},
+  "page_size": {{ pagination.size }},
+  "total_pages": {{ pagination.hrefs | length }},
+  "next": {{ pagination.href.next | dump }},
+  "previous": {{ pagination.href.previous | dump }},
+  "items": [
+  {% for post in pagePosts %}
+    {
+      "title": {{ post.data.title | dump }},
+      "date": {{ (post.date | dateIso) | dump }},
+      "author": {{ (post.data.author or "Staff Reporter") | dump }},
+      "section": {{ (post.data.section or "Article") | dump }},
+      "summary": {{ (post.data.summary or "") | dump }},
+      "image": {{ (post.data.image or "") | dump }},
+      "image_alt": {{ (post.data.image_alt or post.data.title or "") | dump }},
+      "image_credit": {{ (post.data.image_credit or "") | dump }},
+      "url": {{ post.url | dump }},
+      "slug": {{ (post.fileSlug or "") | dump }},
+      "tags": {{ (post.data.tags or []) | dump }}
+    }{% if not loop.last %},{% endif %}
+  {% endfor %}
+  ]
+}
