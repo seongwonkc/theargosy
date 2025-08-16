@@ -1,19 +1,28 @@
----
-layout: "layouts/base.njk"
-title: "Admin"
-summary: "Content Manager"
----
-<h1>Content Manager</h1>
-<div id="cms"></div>
-
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) window.netlifyIdentity.on("login", () => window.location.reload());
-    });
-  }
-  // Mount CMS to #cms (optional, Decap auto-mounts otherwise)
-  if (window.CMS) CMS.init({ config: { load_config_file: true } });
-</script>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Content Manager</title>
+    <!-- Netlify Identity (login modal) -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Decap CMS (auto-mounts on /admin) -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <style>
+      /* tiny reset to avoid inherited styles if any */
+      html,body{margin:0;padding:0;background:#fff;color:#111;font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    </style>
+  </head>
+  <body>
+    <!-- Decap auto-initializes; no CMS.init() call needed -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => window.location.reload());
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
