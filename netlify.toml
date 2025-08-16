@@ -14,9 +14,6 @@
 
 # Security/Caching headers (tweak as needed)
 [[headers]]
-  for = "/*"
+  for = "/assets/*"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "no-referrer-when-downgrade"
-    Cache-Control = "public, max-age=300"
