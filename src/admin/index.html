@@ -4,41 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Content Manager</title>
-
     <style>
       html,body{margin:0;padding:0;background:#fff;color:#111;font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-      #cms-root{min-height:100vh; display:flex; align-items:center; justify-content:center}
     </style>
-
-    <!-- IMPORTANT: set MANUAL_INIT *before* loading Decap -->
-    <script>window.CMS_MANUAL_INIT = true;</script>
-
-    <!-- Netlify Identity (login) -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <!-- Decap CMS (lock to a stable v3) -->
-    <script src="https://unpkg.com/decap-cms@3.0.11/dist/decap-cms.js"></script>
   </head>
   <body>
-    <div id="cms-root">Loading CMS…</div>
-
-    <script>
-      function bootCMS() {
-        if (window.CMS) {
-          // Single explicit init; loads /admin/config.yml
-          CMS.init({ config: { load_config_file: true } });
-        }
-        if (window.netlifyIdentity) {
-          window.netlifyIdentity.on("init", (user) => {
-            if (!user) window.netlifyIdentity.on("login", () => window.location.reload());
-          });
-        }
-      }
-      if (document.readyState === "complete" || document.readyState === "interactive") {
-        bootCMS();
-      } else {
-        document.addEventListener("DOMContentLoaded", bootCMS);
-      }
-    </script>
+    <!-- Netlify Identity (login) -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Decap CMS (pinned stable); rely on AUTO-INIT -->
+    <script src="https://unpkg.com/decap-cms@3.0.11/dist/decap-cms.js"></script>
   </body>
 </html>
