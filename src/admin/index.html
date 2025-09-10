@@ -67,7 +67,9 @@
       });
     </script>
   </head>
-<section class="section_margin">
+  <body>
+    <div id="cms-root"></div>
+    <section class="section_margin">
   <div class="container">
     <div class="row"><div class="col-12"><h2 class="widget-title"><span>Latest</span></h2></div></div>
     <div class="row" id="latest-posts"></div>
@@ -89,7 +91,5 @@ fetch('/posts.json').then(r=>r.json()).then(posts=>{
   `).join('');
 });
 </script>
-  <body>
-    <div id="cms-root"></div>
   </body>
 </html>
