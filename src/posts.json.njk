@@ -1,15 +1,22 @@
-
----
-permalink: "/posts.json"
-eleventyExcludeFromCollections: true
----
-[
-{% for post in collections.posts -%}
-{
-  "title": {{ post.data.title | dump }},
-  "url": {{ post.url | dump }},
-  "date": "{{ post.date | dateNews }}",
-  "hero": {{ (post.data.hero or '') | dump }}
-}{% if not loop.last %},{% endif %}
-{%- endfor %}
-]
+<section class="section_margin">
+  <div class="container">
+    <div class="row"><div class="col-12"><h2 class="widget-title"><span>Latest</span></h2></div></div>
+    <div class="row" id="latest-posts"></div>
+  </div>
+</section>
+<script>
+fetch('/posts.json').then(r=>r.json()).then(posts=>{
+  const wrap = document.getElementById('latest-posts'); if(!wrap) return;
+  wrap.innerHTML = posts.slice(0, 9).map(p => `
+    <div class="col-md-6 col-lg-4">
+      <article class="post-card">
+        <a href="${p.url}">
+          ${p.hero ? `<img src="${p.hero}" alt="${p.title}" style="width:100%;height:auto;">` : ``}
+          <h3 class="alith_post_title">${p.title}</h3>
+          <div class="post_meta"><span class="meta_date">${p.date}</span></div>
+        </a>
+      </article>
+    </div>
+  `).join('');
+});
+</script>
