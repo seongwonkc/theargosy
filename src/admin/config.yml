@@ -1,23 +1,18 @@
-
 backend:
-  name: git-gateway
+  name: github
+  repo: seongwonkc/theargosy
   branch: main
 
-media_folder: "src/assets/uploads"
+media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
 collections:
   - name: "posts"
     label: "Posts"
-    folder: "src/posts"
+    folder: "posts"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     fields:
       - { name: "title", label: "Title" }
       - { name: "date", label: "Publish Date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { name: "author", label: "Author", required: false }
-      - { name: "hero", label: "Hero Image", widget: "image", required: false }
-      - { name: "tags", label: "Tags", widget: "list", required: false }
-      - { name: "body", label: "Body", widget: "markdown" }
-      - { name: "layout", label: "Layout", widget: "hidden", default: "article.njk" }
-      - { name: "permalink", label: "Permalink", widget: "hidden", default: "posts/{{slug}}/index.html" }
+      - { name: "body",  label: "Body", widget: "markdown" }
