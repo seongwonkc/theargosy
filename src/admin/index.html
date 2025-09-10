@@ -5,10 +5,45 @@
     <meta name="robots" content="noindex" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>CMS</title>
-    <!-- Decap CMS core script -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <!-- 1) Pin to a concrete 3.x version (example: 3.3.0). -->
+    <!-- If this exact version 404s, try another 3.x (3.2.x, 3.1.x). -->
+    <script src="https://unpkg.com/decap-cms@3.3.0/dist/decap-cms.js"></script>
+
+    <!-- Turn on manual init so we can surface errors cleanly -->
+    <script>window.CMS_MANUAL_INIT = true;</script>
   </head>
   <body>
-    <!-- The CMS UI will mount itself here -->
+    <div id="cms-root"></div>
+    <script>
+      (function () {
+        function fail(msg, err) {
+          console.error(msg, err || "");
+          const el = document.createElement("pre");
+          el.style.padding = "16px";
+          el.style.background = "#fff3cd";
+          el.style.border = "1px solid #ffeeba";
+          el.style.color = "#856404";
+          el.textContent = "CMS failed to load: " + msg + (err ? ("\n" + (err.message || err)) : "");
+          document.body.prepend(el);
+        }
+
+        // Check the script actually loaded
+        if (!window.CMS) return fail("Decap CMS script didn’t load. CDN blocked or version not found.");
+
+        // Explicitly fetch config to surface HTTP/YAML errors
+        fetch("./config.yml", { cache: "no-store" })
+          .then(r => {
+            if (!r.ok) throw new Error("config.yml HTTP " + r.status);
+            return r.text();
+          })
+          .then(text => {
+            if (!text.trim()) throw new Error("config.yml is empty");
+            // If we got here, config is reachable. Now init CMS.
+            window.CMS.init({ configPath: "config.yml" });
+          })
+          .catch(err => fail("Could not load /admin/config.yml", err));
+      })();
+    </script>
   </body>
 </html>
