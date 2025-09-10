@@ -6,7 +6,6 @@ backend:
 # uploads go under src so Eleventy copies them
 media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"
-
 collections:
   - name: "posts"
     label: "Posts"
@@ -18,5 +17,3 @@ collections:
       - { name: "date",  label: "Publish Date", widget: "datetime", format: "YYYY-MM-DD" }
       - { name: "hero",  label: "Hero Image", widget: "image", required: false }
       - { name: "body",  label: "Body", widget: "markdown" }
-      - { name: "layout", label: "Layout", widget: "hidden", default: "article.njk" }
-      - { name: "permalink", label: "Permalink", widget: "hidden", default: "posts/{{slug}}/index.html" }
