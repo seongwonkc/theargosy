@@ -1,8 +1,9 @@
 
 backend:
-  name: git-gateway
+  name: github
+  repo: seongwonkc/theargosy
   branch: main
-
+  
 media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"
 
