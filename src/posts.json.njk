@@ -1,0 +1,15 @@
+
+---
+permalink: "/posts.json"
+eleventyExcludeFromCollections: true
+---
+[
+{% for post in collections.posts -%}
+{
+  "title": {{ post.data.title | dump }},
+  "url": {{ post.url | dump }},
+  "date": "{{ post.date | dateNews }}",
+  "hero": {{ (post.data.hero or '') | dump }}
+}{% if not loop.last %},{% endif %}
+{%- endfor %}
+]
