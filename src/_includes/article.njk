@@ -1,0 +1,13 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<article class="prose">
+  <h1>{{ title }}</h1>
+  <p class="meta">
+    {% if author %}<span class="byline">{{ author }}</span> · {% endif %}
+    <time datetime="{{ date | date('yyyy-LL-dd') }}">{{ date | date("LLLL d, yyyy") }}</time>
+  </p>
+  {% if excerpt %}<p class="dek">{{ excerpt }}</p>{% endif %}
+  {{ content | safe }}
+</article>
+{% endblock %}
