@@ -4,16 +4,26 @@ backend:
   branch: main
 
 # uploads go under src so Eleventy copies them
-media_folder: "src/assets/uploads"
-public_folder: "/assets/uploads"
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
 collections:
-  - name: "posts"
-    label: "Posts"
-    folder: "src/posts"
+  - name: posts
+    label: Posts
+    folder: "src/posts"   # <- IMPORTANT
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     fields:
-      - { name: "title", label: "Title" }
-      - { name: "date",  label: "Publish Date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { name: "hero",  label: "Hero Image", widget: "image", required: false }
-      - { name: "body",  label: "Body", widget: "markdown" }
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime }
+      - { label: Author, name: author, widget: string, required: false }
+      - { label: Excerpt, name: excerpt, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown }
+  - name: pages
+    label: Pages
+    folder: "src/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Body, name: body, widget: markdown }
