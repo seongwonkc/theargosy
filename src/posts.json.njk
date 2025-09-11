@@ -7,7 +7,7 @@ eleventyExcludeFromCollections: true
 {
   "title": {{ post.data.title | dump }},
   "url": {{ post.url | dump }},
-  "date": "{{ post.date | dateNews }}",
+  "date": "{{ post.date | date("yyyy-LL-dd") }}"
   "hero": {{ (post.data.hero or '') | dump }}
 }{% if not loop.last %},{% endif %}
 {%- endfor %}
