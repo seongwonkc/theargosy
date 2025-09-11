@@ -4,6 +4,20 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/*.html": "/" });
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
 
+
+export default function (eleventyConfig) {
+  eleventyConfig.addPassthroughCopy({ "assets": "assets" });
+  eleventyConfig.addCollection("posts", (collection) =>
+    collection.getFilteredByGlob("src/posts/*.{md,html}").sort((a, b) => b.date - a.date)
+  );
+  return {
+    dir: { input: "src", includes: "_includes", data: "_data", output: "_site" },
+    markdownTemplateEngine: "njk",
+    htmlTemplateEngine: "njk"
+  };
+}
+
+  
   // Posts collection (Markdown) sorted by date desc
 eleventyConfig.addCollection("posts", (collection) =>
   collection.getFilteredByGlob("src/posts/**/*.md").sort((a,b) => b.date - a.date)
@@ -12,7 +26,6 @@ eleventyConfig.addCollection("posts", (collection) =>
 eleventyConfig.addFilter("sectionPath", (section, slug) => `/${section}/${slug}/`);
 
 eleventyConfig.addTransform("permalink", (content, outputPath) => content);
-
 
   // Nice date like "18 Sep, 2023"
   eleventyConfig.addFilter("dateNews", (d) => {
