@@ -1,0 +1,21 @@
+---
+layout: layouts/base.njk
+title: Home
+---
+<section>
+  <h1>{{ site.title or "The Argosy" }}</h1>
+  <p>{{ site.description or "Independent student journalism." }}</p>
+
+  <ul class="post-list">
+    {% for post of collections.posts | slice(0, 12) %}
+      <li class="post-card">
+        <a href="{{ post.url }}"><strong>{{ post.data.title }}</strong></a>
+        <div class="meta">
+          <time datetime="{{ post.date | date('yyyy-LL-dd') }}">{{ post.date | date("LLL d, yyyy") }}</time>
+          {% if post.data.author %} · {{ post.data.author }}{% endif %}
+        </div>
+        {% if post.data.excerpt %}<p>{{ post.data.excerpt }}</p>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
