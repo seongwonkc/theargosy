@@ -1,6 +1,3 @@
 {
-  "layout": "article.njk",
-  "eleventyComputed": {
-    "permalink": "posts/{{ page.fileSlug }}/index.html"
-  }
+  "layout": "layouts/article.njk"
 }
