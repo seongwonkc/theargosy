@@ -1,0 +1,11 @@
+:root { --max: 72rem; --pad: 1.25rem; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; line-height: 1.6; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+header, footer { border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: .75rem 0; }
+a { color: inherit; text-decoration: none; }
+h1,h2,h3 { line-height: 1.2; margin: 1.2em 0 .4em; }
+ul.post-list { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: .75rem; }
+.post-card { padding: .75rem; border: 1px solid #eee; border-radius: .5rem; }
+.prose img { max-width: 100%; height: auto; }
+.meta { color: #666; font-size: .9rem; }
